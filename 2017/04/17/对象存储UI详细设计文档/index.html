@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="#对象存储UI详细设计文档    日期 版本号 内容摘要 作者     2017.04.17  对象存储UI详细设计文档 崔德奇    ##1. 概述本文档主要针对对象存储项目进行详细设计说明 ###1.1 编写目的本文档主要为代码开发做准备，是对对象存储需求文档和设计文档的总结，帮助整理开发思路、明确开发步骤、指导开发有效的进行。 ###1.2 参考资料  日志汇聚系统项目需求文档 对象存储交互">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2017/04/17/对象存储UI详细设计文档/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#对象存储UI详细设计文档    日期 版本号 内容摘要 作者     2017.04.17  对象存储UI详细设计文档 崔德奇    ##1. 概述本文档主要针对对象存储项目进行详细设计说明 ###1.1 编写目的本文档主要为代码开发做准备，是对对象存储需求文档和设计文档的总结，帮助整理开发思路、明确开发步骤、指导开发有效的进行。 ###1.2 参考资料  日志汇聚系统项目需求文档 对象存储交互">
+<meta property="og:updated_time" content="2017-08-11T02:19:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="#对象存储UI详细设计文档    日期 版本号 内容摘要 作者     2017.04.17  对象存储UI详细设计文档 崔德奇    ##1. 概述本文档主要针对对象存储项目进行详细设计说明 ###1.1 编写目的本文档主要为代码开发做准备，是对对象存储需求文档和设计文档的总结，帮助整理开发思路、明确开发步骤、指导开发有效的进行。 ###1.2 参考资料  日志汇聚系统项目需求文档 对象存储交互">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/17/对象存储UI详细设计文档/"/>
+
+
+
+
+
+  <title> | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/17/对象存储UI详细设计文档/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-17T20:07:03+08:00">
+                2017-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#对象存储UI详细设计文档</p>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>版本号</th>
+<th>内容摘要</th>
+<th>作者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2017.04.17</td>
+<td></td>
+<td>对象存储UI详细设计文档</td>
+<td>崔德奇</td>
+</tr>
+</tbody>
+</table>
+<p>##1. 概述<br>本文档主要针对对象存储项目进行详细设计说明</p>
+<p>###1.1 编写目的<br>本文档主要为代码开发做准备，是对对象存储需求文档和设计文档的总结，帮助整<br>理开发思路、明确开发步骤、指导开发有效的进行。</p>
+<p>###1.2 参考资料</p>
+<ul>
+<li>日志汇聚系统项目需求文档</li>
+<li>对象存储交互及界面设计文档(<strong>TODO</strong>)</li>
+</ul>
+<p>###1.3 名词解释</p>
+<p>##2. 背景说明</p>
+<p>###2.1 框架背景<br>使用Backbone框架进行开发</p>
+<p>###2.2 项目背景</p>
+<p>###2.3 运行环境<br>Chrome Browser</p>
+<p>##3. 模块设计<br>在Woostor的数据中心页面新增一个导航栏<strong>日志管理</strong>。日志管理下面包含<strong>日志统计</strong>、<strong>日志操作</strong>、<strong>策略配置</strong>个模块。</p>
+<p>###3.1 日志统计模块<br>日志统计模块包含<strong>服务统计</strong>、<strong>数据统计</strong>组件</p>
+<p>####3.1.1 服务统计组件<br>服务统计组件包含<strong>对象服务</strong>、<strong>网关服务</strong>、<strong>存储服务</strong>子组件</p>
+<p>#####功能概要<br>显示对象服务、网关服务、存储服务的信息。</p>
+<ol>
+<li>对象服务，即当前数据中心的对象存储的状态。</li>
+<li>网关服务，即当前数据中心得到网关服务状态。</li>
+<li>存储服务，即当前数据中心的OSS服务的状态。</li>
+<li>服务状态有两种，包括正常、异常的两种状态，同时分别统计处于两种状态的对象服务个数。<br>#####文件基本结构<br><strong>view(视图文件)</strong>:<br>ServiceStatistics.js（<strong>服务统计视图</strong>）<br>LogStatistics（<strong>日志统计视图</strong>）</li>
+</ol>
+<p><strong>hbs(模板文件)</strong>:<br>serviceStatistics.hbs（<strong>服务统计模板</strong>）<br>serviceStatisticsLegend.hbs（<strong>π图图例模板</strong>）</p>
+<p>因为不涉及数据的频繁变化，只显示数据，所以基本的数据操作都放在视图中进行，没有建立model进行数据的转换。</p>
+<p>#####组件接口<br>路由跳转到该模块自动触发视图加载</p>
+<p>#####流程图<br><strong>服务统计</strong>流程图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end: 结束</div><div class="line">cond1=&gt;condition: 获取对象服务/网关服务/存储服务信息</div><div class="line">op1=&gt;operation: 渲染模板，画出π图</div><div class="line">op2=&gt;operation: 渲染模板，显示获取信息失败</div><div class="line"></div><div class="line">st-&gt;cond1-&gt;</div><div class="line">cond1(yes)-&gt;op1-&gt;e</div><div class="line">cond1(no)-&gt;op2-&gt;e</div></pre></td></tr></table></figure>
+<p>####3.1.2 数据统计组件</p>
+<p>#####功能概要</p>
+<ol>
+<li>以条状图的形式显示过去一周的日志条数和日志容量，包括统计数据的当天。</li>
+<li>日志条数以万条为单位，日志容量以GB为单位。</li>
+<li>单击树状图，可以显示或者隐藏改类数据的显示</li>
+<li>刷新频率：60秒</li>
+</ol>
+<p>#####文件基本结构<br><strong>view(视图文件)</strong>:<br>DataStatistics.js（<strong>数据统计视图</strong>）</p>
+<p><strong>hbs(模板文件)</strong>:<br>DataStatistics.hbs（<strong>数据统计模板</strong>）</p>
+<p>#####模块接口<br>路由跳转到该模块自动触发视图加载</p>
+<p>#####流程图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end: 结束</div><div class="line">cond1=&gt;condition: 获取数据统计信息</div><div class="line">op1=&gt;operation: 渲染模板，画出树状图</div><div class="line">op2=&gt;operation: 渲染模板，显示获取信息失败</div><div class="line"></div><div class="line">st-&gt;cond1-&gt;</div><div class="line">cond1(yes)-&gt;op1-&gt;e</div><div class="line">cond1(no)-&gt;op2-&gt;e</div></pre></td></tr></table></figure>
+<p>###3.2 日志维护模块</p>
+<p>####3.2.1 功能概要</p>
+<ol>
+<li>显示日志相关信息，每条日志信息都包括日志类型、日期、总容量、总条数</li>
+<li>对日志信息条目进行分页</li>
+<li>卸载日志数据</li>
+<li>清理日志数据</li>
+<li>选择特性类型或日期的日志信息</li>
+<li>显示正在进行的清理或卸载的任务</li>
+<li>日志类型管理</li>
+</ol>
+<p>####3.2.2 文件结构<br><strong>view(视图文件)</strong>:<br>LogMaintenance.js（<strong>日志维护</strong>）<br>LogOPeration.js（<strong>日志操作 日志清理、日志卸载</strong>）<br>TaskList.js（<strong>任务管理</strong>）<br>LogTypeManager.js（<strong>日志类型管理</strong>）<br>AddLogType.js（<strong>添加日志类型</strong>）<br>DeleteLogType.js（<strong>删除日志类型</strong>）<br>ModifyLogType.js（<strong>修改日志类型</strong>）</p>
+<p><strong>model(模型文件)</strong>:<br>LogItem.js （<strong>日志条目</strong>）<br>LogTypeItem.js（<strong>日志类型条目</strong>）</p>
+<p><strong>collection(集合文件)</strong>:<br>LogCollection.js（<strong>日志条目集合</strong>）<br>LogTypeCollection.js（<strong>日志类型条目集合</strong>）</p>
+<p><strong>hbs(模板文件)</strong>:<br>logMaintenance.hbs（<strong>日志维护</strong>）<br>logListTable.hbs（<strong>日志维护列表</strong>）<br>logUnload.hbs （<strong>日志卸载</strong>）<br>logClean.hbs （<strong>日志清理</strong>）<br>taskList.hbs （<strong>任务管理</strong>）<br>logTypeManager.hbs（<strong>日志类型管理</strong>）<br>logTypeList.hbs（<strong>日志类型列表</strong>）<br>AddLogType.hbs（<strong>添加日志类型</strong>）<br>ModifyLogType.hbs（<strong>修改日志类型</strong>）<br>deleteLogType.hbs（<strong>删除日志类型</strong>）</p>
+<p>####3.2.3 模块接口<br>路由跳转到该模块自动触发视图加载</p>
+<p>####3.2.3 流程图</p>
+<p>#####卸载日志信息流程图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end: 结束</div><div class="line">op1=&gt;operation: 选择要卸载的日志信息</div><div class="line">op2=&gt;operation: 点击卸载按钮，出现卸载提示弹窗</div><div class="line">op3=&gt;operation: 点击弹窗关闭或者取消按钮，弹窗关闭</div><div class="line">op4=&gt;operation: 弹窗关闭，提示开始卸载</div><div class="line">op5=&gt;operation: 弹窗关闭，提示错误原因</div><div class="line">cond1=&gt;condition: 点击弹窗确定按钮</div><div class="line"></div><div class="line">st-&gt;op1-&gt;op2-&gt;cond1-&gt;</div><div class="line">cond1(yes)-&gt;op4-&gt;e</div><div class="line">cond1(no)-&gt;op5-&gt;e</div></pre></td></tr></table></figure>
+<p>#####清理日志信息流程图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end: 结束</div><div class="line">op1=&gt;operation: 选择要清理的日志信息</div><div class="line">op2=&gt;operation: 点击卸载按钮，出现清理提示弹窗</div><div class="line">op3=&gt;operation: 点击弹窗关闭或者取消按钮，弹窗关闭</div><div class="line">op4=&gt;operation: 弹窗关闭，提示开始清理</div><div class="line">op5=&gt;operation: 弹窗关闭，提示错误原因</div><div class="line">cond1=&gt;condition: 点击弹窗确定按钮</div><div class="line"></div><div class="line">st-&gt;op1-&gt;op2-&gt;cond1-&gt;</div><div class="line">cond1(yes)-&gt;op4-&gt;e</div><div class="line">cond1(no)-&gt;op5-&gt;e</div></pre></td></tr></table></figure></p>
+<p>#####选择特定日期或类型的日志信息流程图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end: 结束</div><div class="line">op1=&gt;operation: 选择日志类型</div><div class="line">op2=&gt;operation: 选择日期</div><div class="line">cond=&gt;condition: 向服务端获取信息</div><div class="line">op3=&gt;operation: 获取特定日志信息成功，显示结果</div><div class="line">op4=&gt;operation: 获取信息是吧，提示失败 </div><div class="line">st-&gt;op1-&gt;op2-&gt;cond</div><div class="line">cond(yes)-&gt;op3-&gt;e</div><div class="line">cond(no)-&gt;op4-&gt;e</div></pre></td></tr></table></figure></p>
+<p>#####添加/修改日志类型流程图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end: 结束</div><div class="line">op1=&gt;operation: 点击添加按钮</div><div class="line">op2=&gt;operation: </div><div class="line">cond1=&gt;condition: 输入数据</div><div class="line">cond2=&gt;condition: 点击取消或者关闭</div><div class="line">op4=&gt;operation: 点击取消或者关闭</div><div class="line">op3=&gt;operation: 点击确定，弹框关闭，新的日志类型添加到列表</div><div class="line">op5=&gt;operation: 点击日志类型列表弹窗的确定按钮</div><div class="line">op6=&gt;operation: </div><div class="line">st-&gt;op1-&gt;cond2</div><div class="line">cond2(yes)-&gt;op5-&gt;e</div><div class="line">cond2(no)-&gt;cond1(no)-&gt;op4(left)-&gt;op5-&gt;e</div><div class="line">cond1(yes,right)-&gt;op3(right)-&gt;op5-&gt;e</div></pre></td></tr></table></figure></p>
+<p>###3.3 策略配置模块</p>
+<p>####3.3.1 功能概要</p>
+<p>#####自动卸载</p>
+<ol>
+<li>设置卸载日志文件大小、卸载延迟时间、卸载时间段、卸载时间周期作为自动卸载的配置<br>#####自动清理</li>
+<li>设置日志数据保留天数、清理日志条件、清理时间段、清理时间周期作为自动清理的配置</li>
+</ol>
+<p>####3.3.2 文件结构<br><strong>view(视图文件)</strong>:<br>AutoUnload.js（<strong>自动卸载</strong>）<br>AutoClean.js（<strong>自动清理</strong>）<br>PolicySetting.js（<strong>策略配置</strong>）</p>
+<p><strong>model(模型文件)</strong>:<br>AutoUnload.js（<strong>自动卸载</strong>）<br>AutoClean.js（<strong>自动清理</strong>）</p>
+<p><strong>hbs(模板文件)</strong>:<br>PolicySetting.hbs（<strong>策略配置</strong>）<br>AutoUnload.hbs（<strong>自动卸载</strong>）<br>AutoClean.hbs（<strong>自动清理</strong>）</p>
+<p>####3.3.3 模块接口<br>路由跳转到该模块自动触发视图加载</p>
+<p>####3.3.4 流程图</p>
+<p>#####获取自动卸载配置或自动清理配置流程图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end: 结束</div><div class="line">op1=&gt;operation: 渲染视图</div><div class="line">op2=&gt;operation: 显示获取信息失败</div><div class="line">cond=&gt;condition: 从服务端获取自动清理/自动卸载的配置信息</div><div class="line"></div><div class="line">st-&gt;cond</div><div class="line">cond(yes)-&gt;op1-&gt;e</div><div class="line">cond(no)-&gt;op2-&gt;e</div></pre></td></tr></table></figure></p>
+<p>#####设置自动卸载/自动清理流程图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end: 结束</div><div class="line">op1=&gt;operation: 设置相应数据</div><div class="line">cond1=&gt;condition: 数据是否符合要求</div><div class="line">op2=&gt;operation: 点击确认按钮</div><div class="line">cond2=&gt;condition: 向服务端发送自动清理/卸载的配置信息</div><div class="line">op3=&gt;operation: 页面渲染新的设置信息</div><div class="line">op4=&gt;operation: 显示获取信息失败</div><div class="line"></div><div class="line">st-&gt;op1-&gt;cond1</div><div class="line">cond1(yes)-&gt;op2-&gt;cond2</div><div class="line">cond1(no)-&gt;op1</div><div class="line">cond2(yes)-&gt;op3-&gt;e</div><div class="line">cond2(no)-&gt;op4-&gt;e</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/09/邮件报警UI详细设计/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    Theme &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Muse
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
