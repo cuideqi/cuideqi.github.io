@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -96,13 +96,14 @@
 
 <meta name="description" content="#对象存储UI详细设计文档    日期 版本号 内容摘要 作者     2017.04.17  对象存储UI详细设计文档 崔德奇    ##1. 概述本文档主要针对对象存储项目进行详细设计说明 ###1.1 编写目的本文档主要为代码开发做准备，是对对象存储需求文档和设计文档的总结，帮助整理开发思路、明确开发步骤、指导开发有效的进行。 ###1.2 参考资料  日志汇聚系统项目需求文档 对象存储交互">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="异度空间">
 <meta property="og:url" content="http://yoursite.com/2017/04/17/对象存储UI详细设计文档/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="异度空间">
 <meta property="og:description" content="#对象存储UI详细设计文档    日期 版本号 内容摘要 作者     2017.04.17  对象存储UI详细设计文档 崔德奇    ##1. 概述本文档主要针对对象存储项目进行详细设计说明 ###1.1 编写目的本文档主要为代码开发做准备，是对对象存储需求文档和设计文档的总结，帮助整理开发思路、明确开发步骤、指导开发有效的进行。 ###1.2 参考资料  日志汇聚系统项目需求文档 对象存储交互">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-08-11T02:19:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="异度空间">
 <meta name="twitter:description" content="#对象存储UI详细设计文档    日期 版本号 内容摘要 作者     2017.04.17  对象存储UI详细设计文档 崔德奇    ##1. 概述本文档主要针对对象存储项目进行详细设计说明 ###1.1 编写目的本文档主要为代码开发做准备，是对对象存储需求文档和设计文档的总结，帮助整理开发思路、明确开发步骤、指导开发有效的进行。 ###1.2 参考资料  日志汇聚系统项目需求文档 对象存储交互">
 
 
@@ -111,14 +112,14 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: true,
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -138,26 +139,36 @@
 
 
 
-  <title> | Hexo</title>
+  <title> | 异度空间</title>
   
 
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8e07147ba91ca35f5847c715a49a14f6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -168,12 +179,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">异度空间</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">上善若水</p>
       
   </div>
 
@@ -198,7 +209,27 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -208,7 +239,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            归档
           </a>
         </li>
       
@@ -218,7 +249,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
@@ -258,13 +289,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/17/对象存储UI详细设计文档/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="cdq">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avator.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="异度空间">
     </span>
 
     
@@ -282,9 +313,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-17T20:07:03+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-17T20:07:03+08:00">
                 2017-04-17
               </time>
             
@@ -505,9 +536,9 @@
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="John Doe" />
-          <p class="site-author-name" itemprop="name">John Doe</p>
+               src="/images/avator.jpg"
+               alt="cdq" />
+          <p class="site-author-name" itemprop="name">cdq</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
           
@@ -518,7 +549,7 @@
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
                 <span class="site-state-item-count">4</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
@@ -567,22 +598,22 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">cdq</span>
 
   
 </div>
 
 
   <div class="powered-by">
-    Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
   </div>
 
   <span class="post-meta-divider">|</span>
 
   <div class="theme-info">
-    Theme &mdash;
+    主题 &mdash;
     <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-      NexT.Muse
+      NexT.Pisces
     </a>
   </div>
 
@@ -667,6 +698,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
